@@ -189,7 +189,7 @@ PlayerFireballN.prototype.draw = function(ctx)  {
 
 
 var PlayerFireballB = function(x,y) {
-    this.setup('fireball',{vy:-700, vx: -400});
+    //this.setup('fireball',{vy:-700, vx: -400});
     this.x = x - this.w/2; 
     this.y = y - this.h; 
   
