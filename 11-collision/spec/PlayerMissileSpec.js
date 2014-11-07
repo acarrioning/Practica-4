@@ -74,7 +74,7 @@ describe("Clase PlayerMissile", function(){
 
     
 
-
+/*
         it("PlayerMissile.step", function() {
                 SpriteSheet = { step:function(){},map: {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 }} };
                 test_missil = new PlayerMissile(1, 1);
@@ -90,7 +90,7 @@ describe("Clase PlayerMissile", function(){
                 expect(board.remove).toHaveBeenCalledWith(test_missil);
         });
 
-
+*/
 });
 
 
