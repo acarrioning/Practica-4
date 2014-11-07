@@ -125,6 +125,7 @@ describe("Clase CollisionsSpec", function(){
                 expect(board.objects[0].sprite).toBe('explosion');
                 expect(board.objects.length).toBe(1);//Cuando el misil impacte, el misil ha de desaparecer
         });
+        //el resto de test funcionan igual que el anterior
         it("Daño del misil inferior vida del enemigo",function(){
                 enemy.x = 5;
                 enemy.y = 5;
@@ -141,7 +142,7 @@ describe("Clase CollisionsSpec", function(){
                 expect(board.objects[0]).toBe(enemy);
                 expect(board.objects.length).toBe(1);
         });
-        it("FireBall destruye enemigo", function() {
+        it("FireBall destruye al enemigo", function() {
                 enemy.x=5;
                 enemy.y=5;
                 board.add(enemy);

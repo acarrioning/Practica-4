@@ -105,17 +105,16 @@ describe("Clase CollisionsSpec", function(){
                 oldGame = Game;
                 board= new GameBoard();
                 var enemy = new Enemy(enemies.basic);
-                enemy.x = 5;
-                enemy.y = 5;
-                enemy.health = 20;
-                board.add(enemy);
         });
 
         afterEach(function(){
                 Game = oldGame;
         });
         it("Daño del misil igual vida del enemigo",function(){
-        
+                enemy.x = 5;
+                enemy.y = 5;
+                enemy.health = 20;
+                board.add(enemy);
                 var misil = new PlayerMissile(5,5);
                 misil.x = 5;
                 misil.y = 5;
@@ -126,6 +125,7 @@ describe("Clase CollisionsSpec", function(){
                 expect(board.objects[0].sprite).toBe('explosion');
                 expect(board.objects.length).toBe(1);//Cuando el misil impacte, el misil ha de desaparecer
         });
+        //el resto de test funcionan igual que el anterior
         it("Daño del misil inferior vida del enemigo",function(){
                 enemy.x = 5;
                 enemy.y = 5;
