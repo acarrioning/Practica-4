@@ -75,7 +75,14 @@ describe("EnemySpec", function(){
 	ctx = canvas.getContext('2d');
 	expect(ctx).toBeDefined();
         oldGame = Game;
-        board= new GameBoard()        
+        board= new GameBoard()
+        var baseParameters = { A: 0, B: 0, C: 0, D: 0,
+                               E: 0, F: 0, G: 0, H: 0 }  
+        SpriteSheet = {map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
+                              ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
+                              enemy_purple: { sx: 37, sy: 0, w: 42, h: 43, frames: 1 },},
+                              draw: function(){},      
+        };
     });
 
     afterEach(function(){
@@ -83,11 +90,6 @@ describe("EnemySpec", function(){
     });
 
     it("draw", function(){
-        SpriteSheet = {map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
-                       enemy_purple: { sx: 37, sy: 0, w: 42, h: 43, frames: 1 },},
-                       draw: function(){},
-        };
-        var board = new GameBoard();
         spyOn(SpriteSheet, "draw");
         enemy = new Enemy(enemies.basic);        
         board.add(enemy);        
@@ -98,24 +100,22 @@ describe("EnemySpec", function(){
     }); 
 
         it("EnemyConstructor", function(){
-               SpriteSheet = {map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
-                                     ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
-                                     enemy_purple: { sx: 37, sy: 0, w: 42, h: 43, frames: 1 },},
-               };
-               board.add(new Enemy(enemies.basic, { x: 200 }));
+               board.add(new Enemy(enemies.basic,{x: 200}));
                expect(board.objects.length).toBe(1);
         });
 
- /*
+      
         it("EnemyStep", function(){
                //Creo un objeto y lo añado al tablero
-               var objetoVacio= {};
-               var objeto2= board.add(objetoVacio);
-               expect(board.objects[0]).toBe(objetoVacio);//El objeto añadido debería haber sido añadido en la primera posición de objects
-               expect(objeto2.board).toBe(board);
+               var unfriendly = new Enemy(enemies.basic);
+               Enemigo = {remove: function(obj) {}};
+               unfriendly.board=Enemigo;
+               spyOn(Enemigo, "remove");
+               unfriendly.step(0.2);
+               expect(Enemigo.remove).not.toHaveBeenCalled();
+               unfriendly.step(10);
+               expect(Enemigo.remove).toHaveBeenCalled();
         });
-
-*/
 });
 
 

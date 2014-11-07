@@ -4,7 +4,8 @@ var sprites = {
     enemy_purple: { sx: 37, sy: 0, w: 42, h: 43, frames: 1 },
     enemy_bee: { sx: 79, sy: 0, w: 37, h: 43, frames: 1 },
     enemy_ship: { sx: 116, sy: 0, w: 42, h: 43, frames: 1 },
-    enemy_circle: { sx: 158, sy: 0, w: 32, h: 33, frames: 1 }
+    enemy_circle: { sx: 158, sy: 0, w: 32, h: 33, frames: 1 },
+    fireball: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 }
 };
 
 
@@ -159,15 +160,16 @@ var PlayerShip = function() {
 	    Game.keys['fwB'] = false;
 	    this.reload = this.reloadTime;
 	    // Se añaden al gameboard 2 misiles 
-	    this.board.add(new PlayerMissile(this.x,this.y+this.h/2));
+	    this.board.add(new PlayerFireballB(this.x,this.y+this.h/2));
 	}
 
         if(Game.keys['fwN'] && this.reload < 0) {
 	    // Esta pulsada la tecla de disparo y ya ha pasado el tiempo reload
 	    Game.keys['fwN'] = false;
+            Game.PulsoN = true;
 	    this.reload = this.reloadTime;
 	    // Se añaden al gameboard 2 misiles 
-	    this.board.add(new PlayerMissile(this.x+this.w,this.y+this.h/2));
+	    this.board.add(new PlayerFireballN(this.x+this.w,this.y+this.h/2));
 	}
 
     }
@@ -199,6 +201,47 @@ PlayerMissile.prototype.draw = function(ctx)  {
     SpriteSheet.draw(ctx,'missile',this.x,this.y);
 };
 
+//////////////////////////////////////////////////////FireBall////////////////////////////////////////////
+var PlayerFireballN = function(x,y) {
+    this.w = SpriteSheet.map['fireball'].w;
+    this.h = SpriteSheet.map['fireball'].h;
+    this.x = x - this.w/2; 
+
+    this.y = y - this.h; 
+    this.vy = -700;
+    this.vx = -400;
+};
+PlayerFireballN.prototype.step = function(dt){
+    this.x += this.vx * -dt;
+    this.y += this.vy * dt;
+    this.vy=this.vy+100;                 
+    if(this.y < -this.h) { this.board.remove(this); }
+};
+PlayerFireballN.prototype.draw = function(ctx)  {
+    SpriteSheet.draw(ctx,'fireball',this.x,this.y);
+};
+
+
+
+var PlayerFireballB = function(x,y) {
+    this.w = SpriteSheet.map['fireball'].w;
+    this.h = SpriteSheet.map['fireball'].h;
+    this.x = x - this.w/2; 
+
+    this.y = y - this.h; 
+    this.vy = -700;
+    this.vx = -400;
+};
+
+PlayerFireballB.prototype.step = function(dt)  {
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+    this.vy=this.vy+100;            
+    if(this.y < -this.h) { this.board.remove(this); }
+};
+PlayerFireballB.prototype.draw = function(ctx)  {
+    SpriteSheet.draw(ctx,'fireball',this.x,this.y);
+};
 
 
 // Constructor para las naves enemigas. Un enemigo se define mediante
