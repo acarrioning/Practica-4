@@ -215,8 +215,6 @@ PlayerFireballB.prototype.type= OBJECT_FIREBALL;
 PlayerFireballB.prototype.step = function(dt)  {
     this.x += this.vx * dt;
     this.y += this.vy * dt;
-    var collision = this.board.collide(this,OBJECT_ENEMY);
-    if(collision) {collision.hit(this.damage)};
     this.vy=this.vy+100;            
     if(this.y < -this.h) { this.board.remove(this); }
 };
