@@ -137,5 +137,14 @@ describe("Clase PlayerShip", function(){
 
     });
 
+    it("space key fires one by one", function(){
+        Game.keys['fire']= true;//Disparamos (Como esto siempre va a estar a true es como si dejamos pulsado el espacio)
+        ship= new PlayerShip();
+        board = new GameBoard();
+        board.add(ship);//Añadimos un objeto para que dispare y disparamos 2 veces       
+        ship.step(1);
+        ship.step(1);
+        expect(board.objects.length).toBe(3);//tenemos que tener 3 objetos en vez de 5 (la nave y los 2 misiles)
+     });
 });
 
